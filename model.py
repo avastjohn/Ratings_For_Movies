@@ -1,6 +1,10 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, DATETIME
+from sqlalchemy.orm import sessionmaker
+
+ENGINE = None
+Session = None
 
 Base = declarative_base()
 
@@ -30,6 +34,14 @@ class Rating(Base):
     user_id = Column(Integer)
     rating = Column(Integer)
 
+def connect():
+    global ENGINE
+    global Session
+
+    ENGINE = create_engine("sqlite:///ratings.db", echo=True)
+    Session = sessionmaker(bind=ENGINE)
+
+    return Session()
 
 def main():
     """In case we need this for something"""
