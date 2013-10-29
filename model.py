@@ -1,7 +1,8 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, DATETIME
+from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy.orm import sessionmaker
+
 
 ENGINE = None
 Session = None
@@ -22,9 +23,9 @@ class Movie(Base):
     __tablename__ = "movies"
 
     id = Column(Integer, primary_key = True)
-    name = Column(String(32))
-    released_at = Column(DATETIME())
-    imdb_url = Column(String(140))
+    name = Column(String(32), nullable=True)
+    released_at = Column(Date(), nullable=True)
+    imdb_url = Column(String(140), nullable=True)
 
 class Rating(Base):
     __tablename__ = "ratings"
