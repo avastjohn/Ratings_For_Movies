@@ -1,7 +1,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, Date
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship, backref
 
 
 ENGINE = None
@@ -12,7 +12,6 @@ Base = declarative_base()
 ### Class declarations go here
 class User(Base):
     __tablename__ = "users"
-
     id = Column(Integer, primary_key = True)
     email = Column(String(64), nullable=True)
     password = Column(String(64), nullable=True)
@@ -21,7 +20,6 @@ class User(Base):
 
 class Movie(Base):
     __tablename__ = "movies"
-
     id = Column(Integer, primary_key = True)
     name = Column(String(32), nullable=True)
     released_at = Column(Date(), nullable=True)
@@ -29,11 +27,19 @@ class Movie(Base):
 
 class Rating(Base):
     __tablename__ = "ratings"
-
     id = Column(Integer, primary_key = True)
-    movie_id = Column(Integer)
-    user_id = Column(Integer)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    movie_id = Column(Integer, ForeignKey('movies.id'))
     rating = Column(Integer)
+    user = relationship("User", backref=backref("ratings", order_by=id))
+    movie = relationship("Movie", backref=backref("ratings", order_by=id))
+
+# A user has many ratings
+# A rating belongs to a user
+# A movie has many ratings
+# A rating belongs to a movie
+# A user has many movies through ratings
+# A movie has many users through ratings
 
 def connect():
     global ENGINE

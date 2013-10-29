@@ -12,7 +12,6 @@ def load_users(session):
         user = model.User(age=row_list[1], zipcode=row_list[-1])
         user.id=row_list[0]
         session.add(user)
-    session.commit()
 
 def load_movies(session):
     # use u.item
@@ -35,12 +34,6 @@ def load_movies(session):
                                 imdb_url=row_list[4])
             movie.id=row_list[0]
             session.add(movie)
-    session.commit()
-
-# python -i model.py
-# engine = create_engine("sqlite:///ratings.db", echo=True)
-# Base.metadata.create_all(engine)
-
 
 def load_ratings(session):
     # use u.data
@@ -51,14 +44,18 @@ def load_ratings(session):
         row_list = string.split()
         new_rating = model.Rating(user_id=row_list[0], movie_id=row_list[1], rating=row_list[2])
         session.add(new_rating)
-    session.commit()
 
 def main(session):
     # You'll call each of the load_* functions with the session as an argument
     #####NOTE: commenting these two functions out while we work on load_ratings
-    # load_users(session)
-    # load_movies(session)
+    load_users(session)
+    load_movies(session)
     load_ratings(session)
+    session.commit()
+
+# python -i model.py
+# engine = create_engine("sqlite:///ratings.db", echo=True)
+# Base.metadata.create_all(engine)
 
 if __name__ == "__main__":
     s= model.connect()
