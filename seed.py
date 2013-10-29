@@ -17,19 +17,29 @@ def load_movies(session):
     # use u.item
     f = open("seed_data/u.item")
     rows = f.read().split("\n")
+    f.close()
     for string in rows:
         row_list = string.split("|")
         unformatted_date = row_list[2]
-        # make sure it doesn't format an empty string
-        if unformatted_date != "":
+        title = row_list[1]
+        # make sure it doesn't try to format empty string
+        # or insert a movie without a title
+        if unformatted_date != "" and title != "unknown":
             formatted_date = datetime.strptime(unformatted_date, "%d-%b-%Y")
-        else:
-            formatted_date = datetime.strptime("01-Jan-1900", "%d-%b-%Y")
-        # make an instance of a Movie
-        movie = model.Movie(name=row_list[1], released_at=formatted_date, imdb_url=row_list[4])
-        movie.id=row_list[0]
-        session.add(movie)
+            # format the movie title
+            title = title.decode("latin-1")
+            # make an instance of a Movie
+            movie = model.Movie(name=title,
+                                released_at=formatted_date,
+                                imdb_url=row_list[4])
+            movie.id=row_list[0]
+            session.add(movie)
     session.commit()
+
+# python -i model.py
+# engine = create_engine("sqlite:///ratings.db", echo=True)
+# Base.metadata.create_all(engine)
+
 
 def load_ratings(session):
     # use u.data
