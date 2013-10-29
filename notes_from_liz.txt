@@ -1,0 +1,20 @@
+<form action="/create_account" method="POST">
+<input name="name"> // liz
+
+POST /create_account HTTP 1.1
+(other shit)
+
+Body:
+
+the_post_body = "name=liz&email=liz@liz.com&hat=bowler"
+
+post_body_array = the_post_body.split("&")
+
+for kv in post_body_array:
+    kv = kv.split("=") # ["name", "liz"]
+    request.form[kv[0]] = kv[1]
+
+
+request.form.get("name")
+
+

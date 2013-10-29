@@ -10,7 +10,7 @@ session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=F
 Base = declarative_base()
 Base.query = session.query_property()
 
-### Class declarations go here
+# Class declarations
 class Rating(Base):
     # Association
     __tablename__ = "ratings"
@@ -38,12 +38,31 @@ class Movie(Base):
     imdb_url = Column(String(140), nullable=True)
     # user = relationship("Rating", backref="movies")
 
-# A user has many ratings
-# A rating belongs to a user
-# A movie has many ratings
-# A rating belongs to a movie
-# A user has many movies through ratings
-# A movie has many users through ratings
+# Flask functions
+
+######return [new_email, new_pw, new_age, new_zip]
+
+# Create a new user (signup)
+def create_new_user(session, new_email, new_pw, new_age, new_zip):
+    # connect to db?
+    new_user = User(email=new_email, 
+                    password=new_pw, 
+                    age=new_age, 
+                    zipcode=new_zip)
+    session.add(new_user)
+    session.commit()
+    print "@#$#@#$%#@@$$%#@@$$%##@#$%$#@@$%$#@#$$#@$#@$#@$#@$#@$#@$#@$#@"
+    print "Added new user to users database"
+
+# Log in as a user
+def login():
+    pass
+
+# View a list of all users
+
+# Click on a user and view the list of movies they've rated, as well as the ratings
+
+# When logged in and viewing a record for a movie, either add or update a personal rating for that movie.
 
 def connect():
     global ENGINE
