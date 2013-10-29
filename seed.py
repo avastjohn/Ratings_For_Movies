@@ -6,6 +6,7 @@ def load_users(session):
     # use u.user
     f = open("seed_data/u.user")
     rows = f.read().split("\n")
+    f.close()
     for string in rows:
         row_list = string.split("|")
         user = model.User(age=row_list[1], zipcode=row_list[-1])
@@ -43,16 +44,21 @@ def load_movies(session):
 
 def load_ratings(session):
     # use u.data
-    # print "id:", movie.id
-    # print "name:", movie.name
-    # print "released at:", movie.released_at
-    # print "imdb:", movie.imdb_url
-    pass
+    f = open("seed_data/u.data")
+    rows = f.read().split("\n")
+    f.close()
+    for string in rows:
+        row_list = string.split()
+        new_rating = model.Rating(user_id=row_list[0], movie_id=row_list[1], rating=row_list[2])
+        session.add(new_rating)
+    session.commit()
 
 def main(session):
     # You'll call each of the load_* functions with the session as an argument
-    load_users(session)
-    load_movies(session)
+    #####NOTE: commenting these two functions out while we work on load_ratings
+    # load_users(session)
+    # load_movies(session)
+    load_ratings(session)
 
 if __name__ == "__main__":
     s= model.connect()
