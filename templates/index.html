@@ -1,19 +1,30 @@
-<html>
-    <body>
-        <h1>Create new account</h1>
-        <form action="/create_account" method="POST">
-            Email: <input type="text" name="email"><br>
-            Password: <input type="text" name="password"><br>
-            Age: <input type="text" name="age"><br>
-            Zipcode: <input type="text" name="zipcode"><br>
-            <input type="submit" value="Add yo self!">
-        </form>
+{% extends 'master.html' %}
+    {% block body %}
+        <div class="maincontent">
+            <h1><center>I'mma Judge You.</center></h1>
 
-        <h1>Login</h1>
-        <form action="/login" method="POST">
-            Email: <input type="text" name="email"><br>
-            Password: <input type="text" name="password"><br>
-            <input type="submit" value="Check yo self!">
-        </form>
-    </body>
-</html>
+            <br>
+
+            <h2 class="signin-heading">Login</h2>
+            <form action="/login" class="signin" method="POST">
+                Email: <input type="text" class="form-control" name="email"><br>
+                Password: <input type="password" class="form-control" name="password"><br>
+                <input type="submit" class="btn" value="Check yo self!">
+            </form>
+
+            <br>
+
+            <h2 class="signin-heading">Create a new account</h2>
+            <form action="/create_account" class="signin" method="POST">
+                Email: <input type="text" class="form-control" name="email"><br>
+                Password: <input type="password" class="form-control" name="password"><br>
+                Age: <input type="text" class="form-control" name="age"><br>
+                Zipcode: <input type="text" class="form-control" name="zipcode"><br>
+                <input type="submit" class="btn" value="Add yo self!">
+            </form>
+
+            <br>
+
+            <a href="/user_list">User list</a>
+        </div>
+    {% endblock %}

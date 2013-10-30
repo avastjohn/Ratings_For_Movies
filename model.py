@@ -60,9 +60,16 @@ def authenticate(email, password):
             return True
     return False
 
-# View a list of all users
-
-# Click on a user and view the list of movies they've rated, as well as the ratings
+# Click on a user and view the list of movies they've rated + ratings
+def get_user_movies(user_id):
+    user_list = session.query(User).get(user_id)
+    for user in user_list:
+        return user
+        
+def get_user_ratings(user_id):
+    user_list = session.query(User).all()
+    for user in user_list:
+        return user[2] 
 
 # When logged in and viewing a record for a movie, either add or update a personal rating for that movie.
 

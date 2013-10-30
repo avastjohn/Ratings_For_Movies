@@ -5,8 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    user_list = model.session.query(model.User).limit(5).all()
-    return render_template("index.html", users=user_list)
+    return render_template("index.html")
 
 @app.route("/create_account", methods = ["POST"])
 def create_account():
@@ -29,6 +28,16 @@ def process_login():
         return render_template("login.html", email=email, password=password)
     else:
         return render_template("login_fail.html")
+
+@app.route("/user_list")
+def user_list():
+    user_list = model.session.query(model.User).limit(5).all()
+    return render_template("user_list.html", users=user_list)
+
+@app.route("/user_list/<user_id>")
+def user_id(user_id):
+    user = model.session.query(model.User).get(user_id)
+    return render_template("user_id.html", user=user)
 
 if __name__ == "__main__":
     app.run(debug = True)

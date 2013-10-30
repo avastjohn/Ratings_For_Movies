@@ -1,9 +1,8 @@
-<html>
-    <body>
-        <h2>You have logged in!</h2>
+{% extends 'master.html' %}
+    {% block body %}
+        <h2 class="signin">You have logged in!</h2>
         <ul>
             <li>Email: {{ email }}</li>
             <li>Password: {{ password }}</li>
         </ul>
-    </body>
-</html>
+    {% endblock %}
