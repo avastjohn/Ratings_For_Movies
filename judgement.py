@@ -20,6 +20,11 @@ def create_account():
         model.create_new_user(model.session, new_email, new_pw, new_age, new_zip)
         return render_template("new_user.html", new_email=new_email, new_pw=new_pw, new_age=new_age, new_zip=new_zip)
 
+@app.route("/login", methods=["POST"])
+def process_login():
+    email = request.form.get("email")
+    password = request.form.get("password")
+    return render_template("login.html", email=email, password=password)
 
 if __name__ == "__main__":
     app.run(debug = True)

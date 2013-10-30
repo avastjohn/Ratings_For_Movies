@@ -1,11 +1,19 @@
 <html>
     <body>
+        <h1>Create new account</h1>
         <form action="/create_account" method="POST">
             Email: <input type="text" name="email"><br>
             Password: <input type="text" name="password"><br>
             Age: <input type="text" name="age"><br>
             Zipcode: <input type="text" name="zipcode"><br>
             <input type="submit" value="Add yo self!">
+        </form>
+
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            Email: <input type="text" name="email"><br>
+            Password: <input type="text" name="password"><br>
+            <input type="submit" value="Check yo self!">
         </form>
     </body>
 </html>

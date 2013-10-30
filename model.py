@@ -10,7 +10,7 @@ session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=F
 Base = declarative_base()
 Base.query = session.query_property()
 
-# Class declarations
+### Class declarations
 class Rating(Base):
     # Association
     __tablename__ = "ratings"
@@ -38,13 +38,10 @@ class Movie(Base):
     imdb_url = Column(String(140), nullable=True)
     # user = relationship("Rating", backref="movies")
 
-# Flask functions
-
-######return [new_email, new_pw, new_age, new_zip]
+### Flask functions
 
 # Create a new user (signup)
 def create_new_user(session, new_email, new_pw, new_age, new_zip):
-    # connect to db?
     new_user = User(email=new_email, 
                     password=new_pw, 
                     age=new_age, 
@@ -55,8 +52,10 @@ def create_new_user(session, new_email, new_pw, new_age, new_zip):
     print "Added new user to users database"
 
 # Log in as a user
-def login():
-    pass
+def authenticate(email, password):
+    # for user in session.query(User):
+#        if user.email == email and user.password == password:
+    print session.query(User)
 
 # View a list of all users
 
@@ -64,18 +63,10 @@ def login():
 
 # When logged in and viewing a record for a movie, either add or update a personal rating for that movie.
 
-def connect():
-    global ENGINE
-    global Session
 
-    ENGINE = create_engine("sqlite:///ratings.db", echo=True)
-    Session = sessionmaker(bind=ENGINE)
-
-    return Session()
 
 def main():
-    """In case we need this for something"""
-    pass
+    authenticate("harry@potter.com", "ginny")
 
 if __name__ == "__main__":
     main()
