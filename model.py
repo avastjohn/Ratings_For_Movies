@@ -53,9 +53,12 @@ def create_new_user(session, new_email, new_pw, new_age, new_zip):
 
 # Log in as a user
 def authenticate(email, password):
-    # for user in session.query(User):
-#        if user.email == email and user.password == password:
-    print session.query(User)
+    user_list = session.query(User).all()
+    print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    for user in user_list:
+        if user.email == email and user.password == password:
+            return True
+    return False
 
 # View a list of all users
 
@@ -66,7 +69,7 @@ def authenticate(email, password):
 
 
 def main():
-    authenticate("harry@potter.com", "ginny")
+    pass
 
 if __name__ == "__main__":
     main()

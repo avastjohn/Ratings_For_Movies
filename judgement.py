@@ -22,9 +22,13 @@ def create_account():
 
 @app.route("/login", methods=["POST"])
 def process_login():
+    # form.get("___") --> blank corresponds to name in HTML form
     email = request.form.get("email")
     password = request.form.get("password")
-    return render_template("login.html", email=email, password=password)
+    if model.authenticate(email, password):
+        return render_template("login.html", email=email, password=password)
+    else:
+        return render_template("login_fail.html")
 
 if __name__ == "__main__":
     app.run(debug = True)
