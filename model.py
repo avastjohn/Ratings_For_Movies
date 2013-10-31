@@ -2,6 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship, backref, scoped_session
+import correlation 
 
 # allows querying to session directly
 engine = create_engine("sqlite:///ratings.db", echo=False)
@@ -28,7 +29,22 @@ class User(Base):
     password = Column(String(64), nullable=True)
     age = Column(Integer, nullable=True)
     zipcode = Column(String(15), nullable=True)
-    # movie = relationship("Rating", backref="users")
+    
+    def similarity(user1, user2):
+        u_ratings = {}
+        paired_ratings = []
+        for r in user1.ratings:
+            u_ratings[r.movie_id] = r
+
+        for r in user2.ratings:
+            u_r = u_ratings.get(r.movie_id)
+            if u_r:
+                paired_ratings.append((u_r.rating, r.rating))
+
+        if paired_ratings:
+            return correlation.pearson(paired_ratings)
+        else:
+            return 0.0
 
 class Movie(Base):
     __tablename__ = "movies"
@@ -59,17 +75,6 @@ def authenticate(email, password):
         if user.email == email and user.password == password:
             return True
     return False
-
-# Click on a user and view the list of movies they've rated + ratings
-def get_user_movies(user_id):
-    user_list = session.query(User).get(user_id)
-    for user in user_list:
-        return user
-        
-def get_user_ratings(user_id):
-    user_list = session.query(User).all()
-    for user in user_list:
-        return user[2] 
 
 # When logged in and viewing a record for a movie, either add or update a personal rating for that movie.
 

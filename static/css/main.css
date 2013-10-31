@@ -1,9 +1,30 @@
 body {
     margin: 0;
+    background-image: url(http://www.hdwallpapers3d.com/wp-content/uploads/2013/05/Grumpy-Cat-01.jpg);
+}
+
+a {
+    font: 40px "Arial", sans-serif;
+    color: DeepPink;
+    text-decoration: none;
+    padding: 10px;
+}
+
+a:hover {
+    text-decoration: none;
+    background-color: Gold;
+    padding: 10px;
+}
+
+.maincontainer {
+    margin: 0 50% 0 0;
+    padding: 50px;
+    width: 500px;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .maincontent {
-    margin: 50px auto;
+    margin: 0 50% 0 0;
     width: 500px;
 }
 
@@ -18,7 +39,6 @@ h1, h2 {
 }
 
 form {
-    margin: auto;
     font: 16px/28px "Arial", sans-serif;
 }
 
@@ -27,7 +47,24 @@ form {
 }
 
 .form-control {
-    border: 1px solid LimeGreen;
+    border: 2px solid LimeGreen;
     width: 100%;
-    height: 30px;
+    height: 50px;
+}
+
+.btn {
+    margin-top: 25px;
+    background-color: Gold;
+    border: 3px solid Orange;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: DeepPink;
+    border-radius: 10px;
+}
+
+input {
+    font: 30px "Arial", sans-serif;
 }

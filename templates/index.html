@@ -1,15 +1,14 @@
 {% extends 'master.html' %}
     {% block body %}
+    <div class="maincontainer">
         <div class="maincontent">
             <h1><center>I'mma Judge You.</center></h1>
-
-            <br>
 
             <h2 class="signin-heading">Login</h2>
             <form action="/login" class="signin" method="POST">
                 Email: <input type="text" class="form-control" name="email"><br>
                 Password: <input type="password" class="form-control" name="password"><br>
-                <input type="submit" class="btn" value="Check yo self!">
+                <input type="submit" class="btn" value="Check yo self befo' you wreck yo self!">
             </form>
 
             <br>
@@ -20,11 +19,12 @@
                 Password: <input type="password" class="form-control" name="password"><br>
                 Age: <input type="text" class="form-control" name="age"><br>
                 Zipcode: <input type="text" class="form-control" name="zipcode"><br>
-                <input type="submit" class="btn" value="Add yo self!">
+                <input type="submit" class="btn" value="Add yo self and then treat yo self!">
             </form>
 
-            <br>
+            <br><br>
 
-            <a href="/user_list">User list</a>
+            <center><a href="/user_list">User list</a></center>
         </div>
+    </div>
     {% endblock %}

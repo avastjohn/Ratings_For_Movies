@@ -1,0 +1,7 @@
+{% extends 'master.html' %}
+    {% block body %}
+        <h2 class="signin">{{ movie_name }}</h2>
+        {% if session.get("user_id") %}
+        <h3 class="signin">Your rating: {{ wat }}</h3>
+        {% endif %}
+    {% endblock %}

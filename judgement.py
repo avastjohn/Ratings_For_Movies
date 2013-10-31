@@ -26,6 +26,7 @@ def process_login():
     password = request.form.get("password")
     if model.authenticate(email, password):
         return render_template("login.html", email=email, password=password)
+        # redirect to logged in user page instead
     else:
         return render_template("login_fail.html")
 
@@ -38,6 +39,20 @@ def user_list():
 def user_id(user_id):
     user = model.session.query(model.User).get(user_id)
     return render_template("user_id.html", user=user)
+
+@app.route("/movie/<movie_id>")
+def view_movie(movie_id):
+    movie = model.session.query(model.Movie).get(movie_id)
+    user = model.session.query(model.User).get(800)
+    user_ratings = user.ratings
+    found_item = None
+    for thing in user_ratings:
+        # left = movie that user rated
+        # right = getting passed in
+        if thing.movie_id == movie_id:
+            found_item = thing
+            return render_template("movie.html", movie_name=movie.name, wat=found_item.rating)
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug = True)
