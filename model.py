@@ -46,6 +46,18 @@ class User(Base):
         else:
             return 0.0
 
+    def predict_rating(self, movie):
+        ratings = self.ratings
+        other_ratings = movie.ratings
+        similarities = [(self.similarity(r.user), r) for r in other_ratings]
+        similarities.sort(reverse = True)
+        similarities = [sim for sim in similarities if sim[0] > 0]
+        if not similarities:
+            return None
+        numerator = sum([r.rating * similarity for similarity, r in similarities])
+        denominator = sum([similarity[0] for similarity in similarities])
+        return numerator/denominator
+ 
 class Movie(Base):
     __tablename__ = "movies"
     id = Column(Integer, primary_key = True)
